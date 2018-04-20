@@ -6,11 +6,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-//Used Stackoverflow and youtube videos for some reference.
-//Referenced HW9 & HW10 mostly
-//Asked Kayla about computing the currentindex in removerange,
-//I was able to solve it on my own before she got back to me.
-//testingpushtesting again test test testest testes testing testing
 
 public class TreeSet<T> extends AbstractSet<T>{
 
