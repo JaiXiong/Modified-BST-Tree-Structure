@@ -6,7 +6,13 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+//NOTES ABOUT THIS ASSIGNMENT
+
 //referenced stack overflow and youTube for some design.
+//Referenced HW9 and HW10 mostly
+//Asked Kayla about computing the currentIndex in removerange.
+//I was able to solve it on my own before she got back to me.
+//test etc
 
 public class TreeSet<T> extends AbstractSet<T>{
 
@@ -15,7 +21,7 @@ public class TreeSet<T> extends AbstractSet<T>{
 		private T value;
 		private Node<T> left;
 		private Node<T> right;
-		private int size;
+		private int size; //newly implemented size to keep track of parent node sizes
 
 		public Node(T t)
 		{
@@ -128,7 +134,7 @@ public class TreeSet<T> extends AbstractSet<T>{
 		return size(_root);
 	}
 
-	private int size(Node<T> root) //the getSizeHelper
+	private int size(Node<T> root) //the getSizeHelper returns the size of the sub tree
 	{
 		if (root == null)
 		{
@@ -155,7 +161,7 @@ public class TreeSet<T> extends AbstractSet<T>{
 		return result;
 	}
 
-	private boolean addHelper(T thisItem, Node<T> root)
+	private boolean addHelper(T thisItem, Node<T> root) //adds thisItem 
 	{
 		++root.size;
 		if (_comparator.compare(thisItem, root.getValue()) < 0)
@@ -183,13 +189,13 @@ public class TreeSet<T> extends AbstractSet<T>{
 		return true;
 	}
 
-	public List<T> asList()
+	public List<T> asList() //returns a view of the backed list
 	{
 		return list;
 	}
 
 	@SuppressWarnings("unchecked")
-	private T asItem(Object o) //hw10 asKey
+	private T asItem(Object o) //hw10 askey, checks if item exist in tree
 	{
 		if (_root == null || o == null) return null;
 
@@ -258,16 +264,16 @@ public class TreeSet<T> extends AbstractSet<T>{
 		}
 		else
 		{
-			if (root.left != null && root.right != null)
+			if (root.left != null && root.right != null) //case 1
 			{
 				root.setValue(findMinHelper(root.right));
 				root.right = removeHelper(root.getValue(), root.right);
 			}
-			else if (root.left != null)
+			else if (root.left != null) //case 2
 			{
 				root = root.left;
 			}
-			else if (root.right != null)
+			else if (root.right != null) //case 3
 			{
 				root = root.right;
 			}
@@ -279,7 +285,7 @@ public class TreeSet<T> extends AbstractSet<T>{
 		return root;
 	}
 
-	private T findMinHelper(Node<T> root)
+	private T findMinHelper(Node<T> root) //find successor
 	{
 		if (root.left == null)
 		{
@@ -289,7 +295,7 @@ public class TreeSet<T> extends AbstractSet<T>{
 		return findMinHelper(root.left);
 	}
 
-	private class SetList extends AbstractList<T>
+	private class SetList extends AbstractList<T> 
 	{
 		private void modified()
 		{
@@ -305,7 +311,7 @@ public class TreeSet<T> extends AbstractSet<T>{
 			return getHelper(index, _root);
 		}
 
-		private T getHelper(int index, Node<T> root)
+		private T getHelper(int index, Node<T> root) //uses index to find lower search time
 		{
 			int leftSize = TreeSet.this.size(root.left);
 
